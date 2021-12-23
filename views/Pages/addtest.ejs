@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Css/Style.css" />
+
+    <title>Add Test</title>
+</head>
+
+<body id="gradient">
+    <div class="container">
+        <div class="qtitle">
+            <h1>Add new test</h1>
+        </div>
+        <div class="input">
+            <label for="subjectid">Subject</label> <br />
+            <select name="subjectid" id="subjectid">
+            <option value="1">Math</option>
+            <option value="2">Physics</option>
+            <option value="3">SVT</option>
+            </select>
+        </div>
+        <div class="levels">
+            <div class="flx">
+            <label for="n1">Level 1</label> <br/>
+            <input type="number" id="n1" class="numb"/><br />
+            </div>
+            <div class="flx">
+            <label for="n2">Level 2</label> <br/>
+            <input type="number" id="n2" class="numb"/><br />
+            </div>
+            <div class="flx">
+            <label for="n3">Level 3</label> <br/>
+            <input type="number" id="n3" class="numb"/>
+            </div>
+        </div>
+        <div class="input">
+            <label for="dateopen">Open date</label> <br />
+            <input type="date" id="dateopen" />
+        </div>
+        <div class="input">
+            <label for="dateclose">Close date</label> <br />
+            <input type="date" id="dateclose" />
+        </div>
+        <div id="Required"></div>
+        <div>
+            <button class="bot" onclick="adding()">Add new test</button>
+        </div>
+        
+    </div>
+</body>
+<script src="../JavaScript/test.js"></script>
+</html>

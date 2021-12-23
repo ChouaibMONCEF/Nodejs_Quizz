@@ -3,8 +3,8 @@ var express = require('express')
 var session = require('express-session')
 var bodyParser = require('body-parser')
 var app = express();
-
-app.set('views', './views')
+app.use(express.static(__dirname + "/views"));
+app.set('views', __dirname + '/views/Pages')
 app.set('view engine', 'ejs')
 
 var con = mysql.createConnection({
@@ -46,8 +46,7 @@ app.post('/auth', function(req, res){
                 req.session.loggedin = true;
                 req.session.email = email;
                 res.redirect("/home");
-            }else{
-              
+            }else{ 
                 res.redirect("/login");
             }
             res.end()
@@ -76,6 +75,16 @@ app.post("/CreateAccount", function (req, res) {
     res.send("enter your infos");
     res.end();
   }
+});
+
+app.get("/AllAccounts", function (req, res) {
+    con.query(
+      "SELECT * FROM mytable",
+      function (err, recordset) {
+        if (err) console.log(err);
+        res.send(recordset)
+      }
+    );
 });
 
 app.get('/home', function(req, res){

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../JavaScript/notlogged.js"></script>
+    <link rel="stylesheet" href="../Css/Style.css" />
+    
+    
+    
+    <title>Quizz Game</title>
+</head>
+<body id="gradient">
+    <div class="container">
+        <div class="qtitle" >
+            <h1>Login</h1>
+        </div>
+        <div class="input">
+            <label for="nickname">Nickname</label> <br>
+            <input type="text" id="nickname">
+        </div>
+        <div class="input">
+            <label for="password">Password</label> <br>
+            <input type="password" id="password">
+        </div>
+        <div id="Required"></div>
+        <div>
+            <button class="bot" onclick="login()">login</button>
+        </div>
+        <span>or</span>
+        <div>
+            <button class="notbot" onclick="goregister()">Register</button>
+        </div>
+    </div>
+</body>
+<script src="../JavaScript/authentication.js"></script>
+</html>

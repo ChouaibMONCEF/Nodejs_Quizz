@@ -1,0 +1,98 @@
+@font-face {
+    font-family: Chineserocks;
+    src: url("../assets/chineserocks.otf") format("opentype");
+}
+*{
+    font-family: Chineserocks;
+
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    /* background: linear-gradient(129deg, #ee9617 , #fe5858 ); */
+}
+
+#gradient
+{
+    height: 100vh;
+    font-size:30px;
+    background: linear-gradient(130deg, #3e17ee, #5c69b6, #ae58fe);
+    background-size: 200% 200%;
+
+    -webkit-animation: Animation 5s ease infinite;
+    -moz-animation: Animation 5s ease infinite;
+    animation: Animation 5s ease infinite;
+}
+
+@-webkit-keyframes Animation {
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position:10% 0%}
+}
+@-moz-keyframes Animation {
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position:10% 0%}
+}
+@keyframes Animation { 
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position:10% 0%}
+}
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.qtitle{
+    font-size: 60px;
+}
+
+h2{
+    margin: 10px;
+}
+
+
+.cardscontainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    margin: 10px;
+    background: linear-gradient(130deg, #eec717, #5fb65c, #58fec7);
+    border-radius: 2px;
+    padding: 15px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .cardhdr{
+    background-color: green;
+} */
+.cardbd{
+    padding: 10px;
+    display: flex;
+    /* background-color: yellow; */
+    flex-direction: column;
+    align-items: left;
+}
+
+
+.hdrc{
+    font-size: 120px;
+}
+
+.cp{
+    margin: 5px;
+}
