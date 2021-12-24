@@ -1,5 +1,5 @@
-const register = () => {
-  const nickname = document.getElementById("nickname").value.toUpperCase();
+const register = async () => {
+  const nickname = document.getElementById("nickname").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   if (
@@ -15,84 +15,63 @@ const register = () => {
   } else {
 
     var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
     myHeaders.append(
       "Cookie",
       "connect.sid=s%3AT_2dOwghZRQNJvUQ6DwNDGRSnOa3legZ.1YydrxtMRkH45XBDBSkXXPkO%2BGU%2B%2FTaedYld%2Bwerelk"
     );
 
-    var raw = "";
+    var raw = JSON.stringify({
+      "nickname": nickname,
+      "email": email,
+    });
 
     var requestOptions = {
-      method: "GET",
+      method: "POST",
       headers: myHeaders,
+      body: raw,
       redirect: "follow",
     };
 
-    let data = fetch("http://localhost:5000/AllAccounts", requestOptions)
+    await fetch("http://localhost:5000/CheckAccount", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        return result;
+        (() => {
+          if(result == true){
+            const require = document.getElementById("Required");
+            require.innerHTML = "Email or nickname already in use";
+          }else{
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+              nickname: nickname,
+              email: email,
+              password: password,
+            });
+
+            var requestOptions = {
+              method: "POST",
+              headers: myHeaders,
+              body: raw,
+              redirect: "follow",
+            };
+
+            fetch("http://localhost:5000/CreateAccount", requestOptions)
+              .then((response) => response.json())
+              .then((result) => console.log(result))
+              .catch((error) => console.log("error", error));
+            window.location.href = "login";
+          }
+        })();
       })
       .catch((error) => console.log("error", error));
-    
-      console.log(data);
-      debugger
-
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
-    // var raw = JSON.stringify({
-    //   "nickname": nickname,
-    //   "email": email,
-    //   "password": password
-    // });
-
-    // var requestOptions = {
-    //   method: 'POST',
-    //   headers: myHeaders,
-    //   body: raw,
-    //   redirect: 'follow'
-    // };
-
-    // fetch("http://localhost:5000/CreateAccount", requestOptions)
-    //   .then(response => response.text())
-    //   .then(result => {return result})
-    //   .catch(error => console.log('error', error));
-    //       window.location.href = "login";
-    // }
-    //  else {
-    //   //check if nickname already exists
-    //   let userss = JSON.parse(localStorage.getItem("users"));
-
-    //   function userExists(name) {
-    //     return userss.some(function (el) {
-    //       return el.nickname === nickname;
-    //     });
-    //   }
-    //   //then push it in as an object
-      // if (userExists(nickname) === true) {
-      //   document.getElementById("Required").innerHTML =
-      //     "Nickname not available";
-      // } else {
-      //   let newuser = {
-      //     id: userss.length + 1,
-      //     nickname: nickname,
-      //     password: password,
-      //     tries: 0,
-      //     rate: 0,
-      //     banned: false,
-      //     success: false,
-      //   };
-      //   localStorage.removeItem("users");
-      //   userss.push(newuser);
-      //   localStorage.setItem("users", JSON.stringify(userss));
-      //   window.location.href = "login";
-      // }
     }
+  }
 
 
 
 const login = () => {
-  const nickname = document.getElementById("nickname").value.toUpperCase();
+  const nickname = document.getElementById("nickname").value;
   const password = document.getElementById("password").value;
   if (
     password == null ||
@@ -105,20 +84,27 @@ const login = () => {
     if (localStorage.getItem("users") == null) {
       document.getElementById("Required").innerHTML = "create account first";
     } else {
-      //validate the authentication
-      let userss = JSON.parse(localStorage.getItem("users"));
-      for (var i = 0; i < userss.length; i++) {
-        if (nickname == userss[i].nickname) {
-          if (password == userss[i].password) {
-            let logged = userss[i];
-            localStorage.setItem("logged", JSON.stringify(logged));
-            window.location.href = "index";
-          } else {
-            document.getElementById("Required").innerHTML =
-              "wrong password";
-          }
-        }
-      }
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3AjVg7zdOITBnl_jX9AkNdkLrh-OcoEkTq.q98Z8Qt8fhg2ESoy%2BGuVh1CGKrfH1zvtCHf8d65cW1g"
+      );
+      var raw = JSON.stringify({
+        nickname: nickname,
+        password: password,
+      });
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+      fetch("http://localhost:5000/auth", requestOptions)
+        .then((response) => response.json())
+        .then((result) => result)
+        .catch((error) => console.log("error", error));
+         window.location.href = "home";
     }
   }
 };
@@ -129,4 +115,4 @@ const goregister = () => {
 
 const gologin = () => {
   window.location.href = "login";
-};
+}
