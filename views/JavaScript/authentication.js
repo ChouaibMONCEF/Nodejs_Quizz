@@ -70,7 +70,8 @@ const register = async () => {
 
 
 
-const login = () => {
+const login = async () => {
+
   const nickname = document.getElementById("nickname").value;
   const password = document.getElementById("password").value;
   if (
@@ -81,9 +82,6 @@ const login = () => {
   ) {
     document.getElementById("Required").innerHTML = "Fill all fields";
   } else {
-    if (localStorage.getItem("users") == null) {
-      document.getElementById("Required").innerHTML = "create account first";
-    } else {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append(
@@ -100,12 +98,12 @@ const login = () => {
         body: raw,
         redirect: "follow",
       };
-      fetch("http://localhost:5000/auth", requestOptions)
+      await fetch("http://localhost:5000/auth", requestOptions)
         .then((response) => response.json())
         .then((result) => result)
         .catch((error) => console.log("error", error));
-         window.location.href = "home";
-    }
+      window.location.href = "home";
+    
   }
 };
 
