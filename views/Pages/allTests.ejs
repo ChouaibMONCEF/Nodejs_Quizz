@@ -1,31 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="../CSS/Style.css" />
+
     <title>Quizz Game</title>
-    
-</head>
-<body id="gradient">
+  </head>
+  <body id="gradient">
     <div class="container">
-        <div class="qtitle" >
-            <h1>All Tests</h1>
-        </div>
-       <table id="table_body">
-            <tr>
-                <th>Test id</th>
-                <th>Subject</th>
-                <th>Level 1 questions</th>
-                <th>Level 2 questions</th>
-                <th>Level 3 questions</th>
-                <th>Date Open</th>
-                <th>Date Close</th>
-            </tr>
-        </table>
-        </div>
-</body>
-<script src="../JavaScript/test.js"></script>
+      <div class="qtitle">
+        <h1>All Questions</h1>
+      </div>
+      <table>
+        <tr>
+          <th>id</th>
+          <th>Subject</th>
+          <th>easy</th>
+          <th>hard</th>
+          <th>medium</th>
+          <th>points</th>
+          <th>action</th>
+        </tr>
+        <% for(var i=0; i< recordset.length; i++) {%>
+        <tr>
+          <td><%=recordset[i].id%></td>
+          <% if(recordset[i].subjectid == 1){%>
+          <td>math</td>
+          <% }else if(recordset[i].subjectid == 2){ %>
+          <td>Physics</td>
+          <% }else { %>
+          <td>SVT</td>
+          <% } %>
+          <td><%=recordset[i].easy_number%></td>
+          <td><%=recordset[i].medium_number%></td>
+          <td><%=recordset[i].hard_number%></td>
+          <td><%=recordset[i].success_percentage%></td>
+          <td><i class="far fa-trash"></i></td>
+
+        </tr>
+        <% } %>
+      </table>
+    </div>
+  </body>
+  <script></script>
 </html>
