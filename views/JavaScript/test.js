@@ -4,25 +4,50 @@ class Test {
     n1questions,
     n2questions,
     n3questions,
-    dateopen,
-    dateclose
+    percentage
   ) {
     this.subjectid = subjectid;
     this.n1questions = n1questions;
     this.n2questions = n2questions;
     this.n3questions = n3questions;
-    this.dateopen = dateopen;
-    this.dateclose = dateclose;
+    this.percentage = percentage;
+
   }
 
   addtest() {
-    console.log(this.subjectid);
-    console.log(this.n1questions);
-    console.log(this.n2questions);
-    console.log(this.n3questions);
-    console.log(this.dateopen);
-    console.log(this.dateclose);
-    console.log("test added");
+    // console.log(this.subjectid);
+    // console.log(this.n1questions);
+    // console.log(this.n2questions);
+    // console.log(this.n3questions);
+    // console.log(this.percentage);
+    // console.log("test added");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "Cookie",
+      "connect.sid=s%3APyCNQ5jh4cUNzHqYXbrfFCLRe2ZOxob-.Vymuo%2BMIjt6f139OQfmDUcvYbQIJKtJtZBJM03jwbrY"
+    );
+
+    var raw = JSON.stringify({
+      title: "Test1",
+      subjectid: this.subjectid,
+      easy_number: this.n1questions,
+      medium_number: this.n2questions,
+      hard_number: this.n3questions,
+      success_percentage: this.percentage
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:5000/AddingTest", requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   }
 
   deletetest() {
@@ -39,9 +64,9 @@ function adding() {
   let n1 = document.querySelector("#n1").value
   let n2 = document.querySelector("#n2").value
   let n3 = document.querySelector("#n3").value
-  let dateopen = document.querySelector("#dateopen").value
-  let dateclose = document.querySelector("#dateclose").value
-  return new Test(subjectid, n1, n2, n3, dateopen, dateclose).addtest()
+  let percentage = document.querySelector("#percentage").value
+  
+  return new Test(subjectid, n1, n2, n3, percentage).addtest()
 }
 
 

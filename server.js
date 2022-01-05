@@ -33,6 +33,38 @@ app.get("/register", function (req, res) {
   res.render("register");
 });
 
+app.get("/allQuestions", function (req, res) {
+  con.query("SELECT * FROM questions", function (err, recordset) {
+    if (err) throw err;
+    if (recordset == 0) {
+      res.send(false);
+    } else {
+      res.render("allQuestions",{recordset: recordset} );
+    }
+  });
+});
+
+app.get("/allTests", function (req, res) {
+  con.query("SELECT * FROM tests", function (err, recordset) {
+    if (err) throw err;
+    if (recordset == 0) {
+      res.send(false);
+    } else {
+      res.render("allTests", { recordset: recordset });
+    }
+  });
+});
+
+app.get("/formateur", function (req, res) {
+  res.render("formateur");
+});
+app.get("/addtest", function (req, res) {
+  res.render("addtest");
+});
+app.get("/addquestion", function (req, res) {
+  res.render("addquestion");
+});
+
 app.get("/login", function (req, res) {
   res.render("login");
 });
@@ -80,6 +112,7 @@ app.post("/CreateAccount", function (req, res) {
   }
 });
 
+
 app.post("/AddQuestion", function (req, res) {
   var question = req.body.question;
   var answers = req.body.answers;
@@ -113,7 +146,7 @@ app.post("/AddQuestion", function (req, res) {
   }
 });
 
-app.post("/AddTest", function (req, res) {
+app.post("/AddingTest", function (req, res) {
   var title = req.body.title;
   var subjectid = req.body.subjectid;
   var easy_number = req.body.easy_number;
@@ -137,6 +170,42 @@ app.post("/AddTest", function (req, res) {
         medium_number,
         hard_number,
         success_percentage,
+      ],
+      function () {
+        res.redirect("/formateur");
+        res.end();
+      }
+    );
+  } else {
+    res.send("enter your infos");
+    res.end();
+  }
+});
+
+app.post("/AddingQuestion", function (req, res) {
+  var question = req.body.question;
+  var answers = req.body.answers;
+  var correct = req.body.correct;
+  var points = req.body.points;
+  var level = req.body.level;
+  var subjectid = req.body.subjectid;
+  if (
+    question &&
+    answers &&
+    correct &&
+    points &&
+    level &&
+    subjectid
+  ) {
+    con.query(
+      "INSERT INTO questions (question, answers, correct, points, level, subjectid) values (?, ?, ?, ?, ?, ?)",
+      [
+        question,
+        answers,
+        correct,
+        points,
+        level,
+        subjectid,
       ],
       function () {
         res.redirect("/formateur");
